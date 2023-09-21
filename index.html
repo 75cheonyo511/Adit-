@@ -55,10 +55,10 @@
 
                     function createHTMLDocument() {
     var blob = new Blob(
-        ['<!doctype html>','<html><head><title>Blob Example</title><body>',document.getElementById('code').value,'</body></html>'],
+        ['<!doctype html>','<html><head><title> Example</title><body>',document.getElementById('code').value,'</body></html>'],
         {type:'text/html'}
     );
-    var url = URL.createObjectURL(blob);
+    var url = URL.createObjectURL();
     var link = document.getElementById('link');
     
     link.setAttribute('href', url);
@@ -77,6 +77,7 @@
 </div>
 <button onclick="createHTMLDocument()" style="line-height:3em">HTML 문서로 만들기</button><br>
 <a href="#" id="link" target="_blank"></a>  
+                <a href='filepath' download>
 
 
                 </div>    
