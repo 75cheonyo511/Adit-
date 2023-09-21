@@ -1,82 +1,52 @@
-<!doctype html>
-<html ng-app="userMgnt">
-<head>
-	<meta charset="UTF-8">
-	<title>사용자 관리 DEMO APP</title>
-	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="resources/app.css">
-	<link rel="stylesheet" href="resources/animation.css">
-	<script type="text/javascript" src="libs/angular/angular.js"></script>
-	<script type="text/javascript" src="libs/angular/angular-animate.js"></script>
-	<script type="text/javascript" src="libs/angular/angular-cookies.js"></script>
-	<script type="text/javascript" src="libs/ui-bootstrap/ui-bootstrap-0.8.0.js"></script>
-	<script type="text/javascript" src="libs/ui-bootstrap/ui-bootstrap-tpls-0.8.0.js"></script>
-	<script type="text/javascript" src="app.js"></script>
-</head>
-<body ng-controller="mainCtrl">
-	<div class="searchBox">
-		<div class="row-fluid borBox">
-			<div class='span12'>
-				<div class='form-horizontal centerOnPage' style="margin-left: -203px;">
-					<ul class="input-append">
-						<input type="text" placeholder="이름" size="16">
-						<button class="btn btn-info box" type="button">
-							<i class='icon-white icon-search'></i>
-						</button>
-					</ul>
-					<button class="btn btn-info box" type="button" ng-click="insert()">
-						<i class='icon-white icon-plus'></i>
-					</button>
-				</div>
+<div class="reg-message">당신의 후기를 모아모아</div>
+<div class="reg-message2">*후기 입력란*</div>
+
+<section class="reg-box">
+	<form>
+		<div class="title-wrapper">
+		<div style="width:90px;font-size:30px;font-family:S-CoreDream-3Light; ">제목 : </div>
+		<div class="reg-title" contenteditable="true"></div>
+		</div>
+		<div class="buttons">
+			<input type="button" class="BOLD" value="Bold"
+				onclick="document.execCommand('bold')" /> <input type="button"
+				class="ITALIC" value="Italic"
+				onclick="document.execCommand('Italic')" /> <input type="button"
+				class="UNDERBAR" value="underline"
+				onclick="document.execCommand('Underline')" />
+			<button type="button" class="aignLeft"
+				onclick="document.execCommand('justifyleft')">
+				<i class="fas fa-align-left"></i>
+			</button>
+			<button type="button" class="aignCenter"
+				onclick="document.execCommand('justifycenter')">
+				<i class="fas fa-align-center"></i>
+			</button>
+			<button type="button" class="aignRight" value="오른쪽 정렬"
+				onclick="document.execCommand('justifyright')">
+				<i class="fas fa-align-right"></i>
+			</button>
+			 <select id="fontSize" width="50px">
+				<option value="">글자 크기</option>
+				<option value="3">10px</option>
+				<option value="4">12px</option>
+				<option value="5">16px</option>
+				<option value="6">20px</option>
+				<option value="7">30px</option>
+			</select>
+			<div class="filebox bs3-primary">
+				<label for="ex_file2">사진 업로드</label> <input type="file"
+					id="ex_file2" accept=".gif, .jpg, .png" name="images" id="imgaes" multiple>
 			</div>
 		</div>
-	</div>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span12">
-<table class="table table-striped table-hover">
-	<thead>
-		<tr>
-			<th>#</th>
-			<th>이름</th>
-			<th>E-Mail</th>
-			<th>가입 날짜</th>
-			<th>수정</th>
-			<th>삭제</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="ani-repeat" ng-repeat="user in userList">
-			<td>{{$index + 1}}</td>
-			<td><input type="text" ng-model="user.name" ng-disabled="!user.edit"></td>
-			<td><input type="email" ng-model="user.email" ng-disabled="!user.edit"></td>
-			<td><input type="date" ng-model="user.regDate" ng-disabled="!user.edit"></td>
-							<td class="center btn-container">
-								<button class="btn btn-danger ani-button" class="" ng-show="!user.edit" ng-click="edit(user)">
-									<i class='icon-white icon-pencil'></i>
-								</button>
-								<button class="btn btn-info ani-button" ng-show="user.edit" type="button" ng-click="complete(user)">
-									<i class='icon-white icon-ok'></i>
-								</button>
-							</td>
-							<td class="center">
-								<button class="btn btn-danger" type="button" ng-click="del($index)">
-									<i class='icon-white icon-trash'></i>
-								</button>
-							</td>
-						</tr>
-						<tr ng-show="!userList.length">
-							<td colspan="6" style="text-align :center">
-								<span class="text-warning">데이터가 없습니다.</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<pagination class="text-center" total-items="totalItems" page="currentPage" items-per-page="3"></pagination>
-		</div>
-	</div>
-</body>
-</html>
+		<div class="content" name="content" contenteditable="true"></div>
+		<a id="submit" href="/board/list">등록</a>
+		<!-- <input type="submit" id="submit" value="등록"> -->
+	</form>
+	<script>
+		document.execCommand('styleWithCSS', false, true);
+document.execCommand('insertBrOnReturn', false, true);
+$("#fontSize").change(function(){
+    document.execCommand('fontSize', false, $(this).val());
+ });
+	</script>
