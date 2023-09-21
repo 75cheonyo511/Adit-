@@ -1,52 +1,265 @@
-<div class="reg-message">당신의 후기를 모아모아</div>
-<div class="reg-message2">*후기 입력란*</div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ㅎㅇ</title>
+</head>
+<body>
+  <div style="display: flex; align-items: flex-start; gap: 20px;">
+    <!-- carousel mode (flex) -->
+    <div data-mode="carousel" data-title="Flex Code" class="fg-editor css-flex">
+      <code data-struct="[1][2][2][2]">
+        .container {
+          display: flex;
+        }
+        .item1 {
+          flex: 1;
+        }
+        .item2 {
+          flex: 2;
+        }
+        .item3 {
+          flex: 1;
+          background-color: #eceafe;
+        }
+        .item4 {
+          flex: 1;
+        }
+        .item5 {
+          flex: 2;
+          background-color: #eceafe;
+        }
+        .item7 {
+          flex: 1;
+          background-color: #eceafe;
+        }
+      </code>
+      <code data-struct="[3]">
+        .container {
+          display: flex;
+          justify-content: center;
+        }
+      </code>
+      <code data-struct="[3]">
+        .container {
+          display: flex;
+          justify-content: flex-end;
+        }
+      </code>
+    </div>
+    <!-- carousel mode (grid) -->
+    <div data-mode="carousel" data-title="Grid Code" class="fg-editor theme-grid">
+      <code data-struct="[6]">
+        .container {
+          display: grid;
+          grid-template-areas:
+            "header header header"
+            "sidebar content1 content2"
+            "sidebar content3 content3"
+            "footer footer footer";
+        }
+        .item1 {
+          grid-area: header;
+        }
+        .item2 {
+          grid-area: sidebar;
+        }
+        .item3 {
+          grid-area: content1;
+        }
+        .item4 {
+          grid-area: content2;
+        }
+        .item5 {
+          grid-area: content3;
+        }
+        .item6 {
+          grid-area: footer;
+        }
+      </code>
+      <code data-struct="[3]">
+        .container {
+          display: flex;
+          justify-content: center;
+        }
+      </code>
+      <code data-struct="[3]">
+        .container {
+          display: flex;
+          justify-content: flex-end;
+        }
+      </code>
+    </div>
+  </div>
 
-<section class="reg-box">
-	<form>
-		<div class="title-wrapper">
-		<div style="width:90px;font-size:30px;font-family:S-CoreDream-3Light; ">제목 : </div>
-		<div class="reg-title" contenteditable="true"></div>
-		</div>
-		<div class="buttons">
-			<input type="button" class="BOLD" value="Bold"
-				onclick="document.execCommand('bold')" /> <input type="button"
-				class="ITALIC" value="Italic"
-				onclick="document.execCommand('Italic')" /> <input type="button"
-				class="UNDERBAR" value="underline"
-				onclick="document.execCommand('Underline')" />
-			<button type="button" class="aignLeft"
-				onclick="document.execCommand('justifyleft')">
-				<i class="fas fa-align-left"></i>
-			</button>
-			<button type="button" class="aignCenter"
-				onclick="document.execCommand('justifycenter')">
-				<i class="fas fa-align-center"></i>
-			</button>
-			<button type="button" class="aignRight" value="오른쪽 정렬"
-				onclick="document.execCommand('justifyright')">
-				<i class="fas fa-align-right"></i>
-			</button>
-			 <select id="fontSize" width="50px">
-				<option value="">글자 크기</option>
-				<option value="3">10px</option>
-				<option value="4">12px</option>
-				<option value="5">16px</option>
-				<option value="6">20px</option>
-				<option value="7">30px</option>
-			</select>
-			<div class="filebox bs3-primary">
-				<label for="ex_file2">사진 업로드</label> <input type="file"
-					id="ex_file2" accept=".gif, .jpg, .png" name="images" id="imgaes" multiple>
-			</div>
-		</div>
-		<div class="content" name="content" contenteditable="true"></div>
-		<a id="submit" href="/board/list">등록</a>
-		<!-- <input type="submit" id="submit" value="등록"> -->
-	</form>
-	<script>
-		document.execCommand('styleWithCSS', false, true);
-document.execCommand('insertBrOnReturn', false, true);
-$("#fontSize").change(function(){
-    document.execCommand('fontSize', false, $(this).val());
- });
-	</script>
+  <br />
+
+  <!-- snippet mode (flex) -->
+  <div data-mode="snippet" class="fg-editor css-flex">
+    <code data-snippet="flex-start" data-item="3">
+      .container {
+        display: flex;
+        justify-content: flex-start;
+      }
+    </code>
+    <code data-snippet="center" data-item="3">
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+    </code>
+    <code data-snippet="flex-end">
+      .container {
+        display: flex;
+        justify-content: flex-end;
+      }
+    </code>
+  </div>
+
+  <br />
+
+  <!-- snippet mode (grid) -->
+  <div data-mode="snippet" class="fg-editor theme-grid css-grid">
+    <code data-snippet="flex-start" data-item="6">
+      .container {
+        display: grid;
+        grid-template-areas:
+          "header header header"
+          "sidebar content1 content2"
+          "sidebar content3 content3"
+          "footer footer footer";
+      }
+      .item {
+        width: auto !important;
+        height: auto !important;
+      }
+      .item1 {
+        grid-area: header;
+      }
+      .item2 {
+        grid-area: sidebar;
+      }
+      .item3 {
+        grid-area: content1;
+      }
+      .item4 {
+        grid-area: content2;
+      }
+      .item5 {
+        grid-area: content3;
+      }
+      .item6 {
+        grid-area: footer;
+      }
+    </code>
+    <code data-snippet="center" data-item="3">
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+    </code>
+    <code data-snippet="flex-end">
+      .container {
+        display: flex;
+        justify-content: flex-end;
+      }
+    </code>
+  </div>
+
+  <br />
+
+  <div class="on">
+    <!-- snippet mode (dark) -->
+    <div data-mode="snippet" class="fg-editor theme-dark css-flex">
+      <code data-snippet="flex-start" data-item="3">
+        .container {
+          display: flex;
+          justify-content: flex-start;
+        }
+      </code>
+      <code data-snippet="center" data-item="3">
+        .container {
+          display: flex;
+          justify-content: center;
+        }
+      </code>
+      <code data-snippet="flex-end">
+        .container {
+          display: flex;
+          justify-content: flex-end;
+        }
+      </code>
+    </div>
+  
+    <br />
+  
+    <!-- snippet mode (grid dark) -->
+    <div data-mode="snippet" class="fg-editor theme-grid theme-dark css-grid">
+      <code data-snippet="flex-start" data-item="3">
+        .container {
+          display: flex;
+          justify-content: flex-start;
+        }
+      </code>
+      <code data-snippet="center" data-item="3">
+        .container {
+          display: flex;
+          justify-content: center;
+        }
+      </code>
+      <code data-snippet="flex-end">
+        .container {
+          display: flex;
+          justify-content: flex-end;
+        }
+      </code>
+    </div>
+  </div>
+
+  <br />
+
+  <!-- free mode -->
+  <div data-mode="free" data-title="Flex Code" class="fg-editor">
+    <code data-struct="[3][2[3]][[[1]]]">
+      .container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      .container1 {
+        margin-bottom: 20px;
+      }
+      .container1 .item {
+        height: 40px;
+      }
+      .container2 {
+        flex-wrap: wrap;
+        width: 300px;
+        margin-bottom: 20px;
+      }
+      .item3 {
+        flex: 1;
+      }
+      .item4 {
+        border-radius: 50%;
+      }
+      .item5 {
+        background-color: #F6866A;
+      }
+    </code>
+  </div>
+</body>
+<script>
+	import './css/style.css';
+import Editor from './js/Editor';
+
+(function () {
+  const findEditors = () => {
+    return [...document.querySelectorAll('.fg-editor')];
+  };
+  findEditors().forEach((editor, index) => new Editor(editor, index).render());
+})();
+</script>
+</html>
