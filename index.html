@@ -62,7 +62,7 @@
     var link = document.getElementById('link');
     
     link.setAttribute('href', url);
-    link.innerHTML = '클릭하여 다운받기';
+    link.innerHTML = url;
                     }
 
                 </script>
@@ -75,8 +75,8 @@
     <p>HTML &lt;body&gt; 태그 안에 들어갈 내용을 입력하세요.</p>
     <p><textarea id="code" style="width:99%;height:100px">&lt;p>안녕하세요.&lt;/p></textarea></p>
 </div>
-<button onclick="createHTMLDocument()" style="line-height:3em">HTML 문서로 만들기</button>
-<p><a href="#" id="link" download="my_document.html"></a></p>    
+<button onclick="createHTMLDocument()" style="line-height:3em">HTML 문서로 만들기</button><br>
+<a href="#" id="link" target="_blank"></a>  
 
 
                 </div>    
