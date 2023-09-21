@@ -1,64 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head lang="en">
-    <meta charset="UTF-8" />
-    <title>Editor</title>
-  </head>
-  <body>
-    <div class="code-html">
-      <!-- Editor -->
-      <h2>Editor</h2>
-      <div id="editor"></div>
-      <!-- Editor's Viewer -->
-      <h2>Viewer</h2>
-      <div id="viewer"></div>
-    </div>
-    <!-- Editor -->
-    <script type="module">
-      import { Editor } from 'http://localhost:8080/dist/index.js';
-      import umlPlugin from '/dist/index.js';
-
-      const content = [
-        '$$uml',
-        'partition Conductor {',
-        '  (*) --> "Climbs on Platform"',
-        '  --> === S1 ===',
-        '  --> Bows',
-        '}',
-        '',
-        'partition Audience #LightSkyBlue {',
-        '  === S1 === --> Applauds',
-        '}',
-        '',
-        'partition Conductor {',
-        '  Bows --> === S2 ===',
-        '  --> WavesArmes',
-        '  Applauds --> === S2 ===',
-        '}',
-        '',
-        'partition Orchestra #CCCCEE {',
-        '  WavesArmes --> Introduction',
-        '  --> "Play music"',
-        '}',
-        '$$'
-      ].join('\n');
-
-      const editor = new Editor({
-        el: document.querySelector('#editor'),
-        previewStyle: 'vertical',
-        height: '500px',
-        initialValue: content,
-        plugins: [umlPlugin]
-      });
-
-      const viewer = Editor.factory({
-        el: document.querySelector('#viewer'),
-        viewer: true,
-        height: '500px',
-        initialValue: content,
-        plugins: [umlPlugin]
-      });
-    </script>
-  </body>
-</html>
-
+<div>
+    <p>HTML &lt;body&gt; 태그 안에 들어갈 내용을 입력하세요.</p>
+    <p><textarea id="code" style="width:99%;height:100px">&lt;p>안녕하세요.&lt;/p></textarea></p>
+</div>
+<button onclick="createHTMLDocument()" style="line-height:3em">HTML 문서로 만들기</button>
+<p><a href="#" id="link" download="my_document.html"></a></p>
+<script>
+  function createHTMLDocument() {
+    var blob = new Blob(
+        ['<!doctype html>','<html><head><title>Blob Example</title><body>',document.getElementById('code').value,'</body></html>'],
+        {type:'text/html'}
+    );
+    var url = URL.createObjectURL(blob);
+    var link = document.getElementById('link');
+    
+    link.setAttribute('href', url);
+    link.innerHTML = '클릭하여 다운받기';
+  }
+</script>
