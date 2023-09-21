@@ -1,94 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Editor</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <form class="btns-form">
-        <button type="button" data-cmd="justifyLeft">
-            <i class="fas fa-align-left"></i>
-        </button>
-        <button type="button" data-cmd="justifyCenter">
-            <i class="fas fa-align-center"></i>
-        </button>
-        <button type="button" data-cmd="justifyFull">
-            <i class="fas fa-align-justify"></i>
-        </button>
-        <button type="button" data-cmd="justifyRight">
-            <i class="fas fa-align-right"></i>
-        </button>
-        <button type="button" data-cmd="bold">
-            <i class="fas fa-bold"></i>
-        </button>
-        <button type="button" data-cmd="italic">
-            <i class="fas fa-italic"></i>
-        </button>
-        <button type="button" data-cmd="underline">
-            <i class="fas fa-underline"></i>
-        </button>
-        <button type="button" data-cmd="insertOrderedList">
-            <i class="fas fa-list-ol"></i>
-        </button>
-        <button type="button" data-cmd="insertUnorderedList">
-            <i class="fas fa-list-ul"></i>
-        </button>
-        <button type="button" data-cmd="insertImage">
-            <i class="far fa-image"></i>
-        </button>
-        <button type="button" data-cmd="createLink">
-            <i class="fas fa-link"></i>
-        </button>
-        <button type="button" data-cmd="showCode" name="active">
-            <i class="fas fa-code"></i>
-        </button>
-    </form>
-    <iframe id="output" name="textField"></iframe>
-    <script src="./index.js"></script>
-</body>
- <script>
-  /* iframe 태그의 name 속성은 자바스크립트 요소를 참조하는데 사용할 수 있다. */
-// https://www.youtube.com/watch?v=fOKaD4NXHIs
-const buttons = document.querySelectorAll('button');
-const btnForm = document.querySelector(".btns-form");
-let showCode = true;
-
-textField.document.designMode = "On";
-
-btnForm.addEventListener("click", async(e) => {
-    const cmd = e.target.closest('button').getAttribute('data-cmd');
-    switch(cmd){
-        case 'insertImage':
-        case 'createLink':
-            const url = await prompt('Enter Link Here: ', "");
-            textField.document.execCommand(cmd, false, url);
-
-            const atags = textField.document.querySelectorAll("a");
-            atags.forEach((atag) => {
-                atag.target = "_blank";
-                atag.addEventListener("mouseover", (e) => {textField.document.designMode = "Off"; });
-                atag.addEventListener("mouseout", (e) => {textField.document.designMode = "On"; });
-            });
-            break;
-        case 'showCode':
-            const textFieldBody = textField.document.querySelector("body"); 
-            if(showCode){
-                textFieldBody.textContent = textFieldBody.innerHTML;
-                showCode = false;
-            }
-            else{
-                textFieldBody.innerHTML = textFieldBody.textContent;
-                showCode = true;
-            }
-            break;
-        default:
-            textField.document.execCommand(cmd, false, null);
-            break;
-    }
+<div class="buttons">
+    <input type="button" class="BOLD" value="B" onclick="document.execCommand('bold')" />
+    <input type="button" class="ITALIC" value="Italic" onclick="document.execCommand('Italic')" />
+    <input type="button" class="UNDERBAR" value="abc" onclick="document.execCommand('Underline')" />
+    <input type="button" class="BAR" value="abc" onclick="document.execCommand('StrikeThrough')" />
+    <input type="button" class="aignLeft" value="왼쪽 정렬" onclick="document.execCommand('justifyleft')" />
+    <input type="button" class="aignCenter" value="가운데 정렬" onclick="document.execCommand('justifycenter')" />
+    <input type="button" class="aignRight" value="오른쪽 정렬" onclick="document.execCommand('justifyright')" />
+</div>
+<div>
+    <div class="editorDIV" contenteditable="true">
+     </div>
+    <div class="editorHTMLDIV">
+    </div>
+</div>
+<div class="buttons">
+    <input type="button" value="에디터로 보기" onclick="convertToEditor()" />
+    <input type="button" value="HTML로 보기" onclick="convertToHTML()" />
+</div>
+<script>
+    $(document).ready(function () {
+    $('.editorHTMLDIV').hide();
 });
- </script>
-</html> 
+ 
+//HTML코드로 보기
+function convertToHTML() {
+    $('.editorHTMLDIV').text($('.editorDIV').html());
+    $('.editorHTMLDIV').show();
+    $('.editorDIV').hide();
+}
+ 
+//에디터 화면으로 보기
+function convertToEditor() {
+    $('.editorDIV').html($('.editorHTMLDIV').text());
+    $('.editorDIV').show();
+    $('.editorHTMLDIV').hide();
+}
+
+</script>
 
