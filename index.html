@@ -1,265 +1,76 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ㅎㅇ</title>
-</head>
-<body>
-  <div style="display: flex; align-items: flex-start; gap: 20px;">
-    <!-- carousel mode (flex) -->
-    <div data-mode="carousel" data-title="Flex Code" class="fg-editor css-flex">
-      <code data-struct="[1][2][2][2]">
-        .container {
-          display: flex;
-        }
-        .item1 {
-          flex: 1;
-        }
-        .item2 {
-          flex: 2;
-        }
-        .item3 {
-          flex: 1;
-          background-color: #eceafe;
-        }
-        .item4 {
-          flex: 1;
-        }
-        .item5 {
-          flex: 2;
-          background-color: #eceafe;
-        }
-        .item7 {
-          flex: 1;
-          background-color: #eceafe;
-        }
-      </code>
-      <code data-struct="[3]">
-        .container {
-          display: flex;
-          justify-content: center;
-        }
-      </code>
-      <code data-struct="[3]">
-        .container {
-          display: flex;
-          justify-content: flex-end;
-        }
-      </code>
-    </div>
-    <!-- carousel mode (grid) -->
-    <div data-mode="carousel" data-title="Grid Code" class="fg-editor theme-grid">
-      <code data-struct="[6]">
-        .container {
-          display: grid;
-          grid-template-areas:
-            "header header header"
-            "sidebar content1 content2"
-            "sidebar content3 content3"
-            "footer footer footer";
-        }
-        .item1 {
-          grid-area: header;
-        }
-        .item2 {
-          grid-area: sidebar;
-        }
-        .item3 {
-          grid-area: content1;
-        }
-        .item4 {
-          grid-area: content2;
-        }
-        .item5 {
-          grid-area: content3;
-        }
-        .item6 {
-          grid-area: footer;
-        }
-      </code>
-      <code data-struct="[3]">
-        .container {
-          display: flex;
-          justify-content: center;
-        }
-      </code>
-      <code data-struct="[3]">
-        .container {
-          display: flex;
-          justify-content: flex-end;
-        }
-      </code>
-    </div>
-  </div>
-
-  <br />
-
-  <!-- snippet mode (flex) -->
-  <div data-mode="snippet" class="fg-editor css-flex">
-    <code data-snippet="flex-start" data-item="3">
-      .container {
-        display: flex;
-        justify-content: flex-start;
-      }
-    </code>
-    <code data-snippet="center" data-item="3">
-      .container {
-        display: flex;
-        justify-content: center;
-      }
-    </code>
-    <code data-snippet="flex-end">
-      .container {
-        display: flex;
-        justify-content: flex-end;
-      }
-    </code>
-  </div>
-
-  <br />
-
-  <!-- snippet mode (grid) -->
-  <div data-mode="snippet" class="fg-editor theme-grid css-grid">
-    <code data-snippet="flex-start" data-item="6">
-      .container {
-        display: grid;
-        grid-template-areas:
-          "header header header"
-          "sidebar content1 content2"
-          "sidebar content3 content3"
-          "footer footer footer";
-      }
-      .item {
-        width: auto !important;
-        height: auto !important;
-      }
-      .item1 {
-        grid-area: header;
-      }
-      .item2 {
-        grid-area: sidebar;
-      }
-      .item3 {
-        grid-area: content1;
-      }
-      .item4 {
-        grid-area: content2;
-      }
-      .item5 {
-        grid-area: content3;
-      }
-      .item6 {
-        grid-area: footer;
-      }
-    </code>
-    <code data-snippet="center" data-item="3">
-      .container {
-        display: flex;
-        justify-content: center;
-      }
-    </code>
-    <code data-snippet="flex-end">
-      .container {
-        display: flex;
-        justify-content: flex-end;
-      }
-    </code>
-  </div>
-
-  <br />
-
-  <div class="on">
-    <!-- snippet mode (dark) -->
-    <div data-mode="snippet" class="fg-editor theme-dark css-flex">
-      <code data-snippet="flex-start" data-item="3">
-        .container {
-          display: flex;
-          justify-content: flex-start;
-        }
-      </code>
-      <code data-snippet="center" data-item="3">
-        .container {
-          display: flex;
-          justify-content: center;
-        }
-      </code>
-      <code data-snippet="flex-end">
-        .container {
-          display: flex;
-          justify-content: flex-end;
-        }
-      </code>
-    </div>
-  
-    <br />
-  
-    <!-- snippet mode (grid dark) -->
-    <div data-mode="snippet" class="fg-editor theme-grid theme-dark css-grid">
-      <code data-snippet="flex-start" data-item="3">
-        .container {
-          display: flex;
-          justify-content: flex-start;
-        }
-      </code>
-      <code data-snippet="center" data-item="3">
-        .container {
-          display: flex;
-          justify-content: center;
-        }
-      </code>
-      <code data-snippet="flex-end">
-        .container {
-          display: flex;
-          justify-content: flex-end;
-        }
-      </code>
-    </div>
-  </div>
-
-  <br />
-
-  <!-- free mode -->
-  <div data-mode="free" data-title="Flex Code" class="fg-editor">
-    <code data-struct="[3][2[3]][[[1]]]">
-      .container {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-      }
-      .container1 {
-        margin-bottom: 20px;
-      }
-      .container1 .item {
-        height: 40px;
-      }
-      .container2 {
-        flex-wrap: wrap;
-        width: 300px;
-        margin-bottom: 20px;
-      }
-      .item3 {
-        flex: 1;
-      }
-      .item4 {
-        border-radius: 50%;
-      }
-      .item5 {
-        background-color: #F6866A;
-      }
-    </code>
-  </div>
-</body>
+<div class="editor-menu">
+    <button id="btn-bold">
+        <b>B</b>
+    </button>
+    <button id="btn-italic">
+        <i>I</i>
+    </button>
+    <button id="btn-underline">
+        <u>U</u>
+    </button>
+    <button id="btn-strike">
+        <s>S</s>
+    </button>
+    <button id="btn-ordered-list">
+        OL
+    </button>
+    <button id="btn-unordered-list">
+        UL
+    </button>
+    <button id="btn-image">
+        IMG
+    </button>
+</div>
+<div id="editor" contenteditable="true">
+	
+</div>
 <script>
-	import './css/style.css';
-import Editor from './js/Editor';
+    const editor = document.getElementById('editor');
+    const btnBold = document.getElementById('btn-bold');
+    const btnItalic = document.getElementById('btn-italic');
+    const btnUnderline = document.getElementById('btn-underline');
+    const btnStrike = document.getElementById('btn-strike');
+    const btnOrderedList = document.getElementById('btn-ordered-list');
+    const btnUnorderedList = document.getElementById('btn-unordered-list');
 
-(function () {
-  const findEditors = () => {
-    return [...document.querySelectorAll('.fg-editor')];
-  };
-  findEditors().forEach((editor, index) => new Editor(editor, index).render());
-})();
+    btnBold.addEventListener('click', function () {
+        setStyle('bold');
+    });
+
+    btnItalic.addEventListener('click', function () {
+        setStyle('italic');
+    });
+
+    btnUnderline.addEventListener('click', function () {
+        setStyle('underline');
+    });
+
+    btnStrike.addEventListener('click', function () {
+        setStyle('strikeThrough')
+    });
+
+    btnOrderedList.addEventListener('click', function () {
+        setStyle('insertOrderedList');
+    });
+
+    btnUnorderedList.addEventListener('click', function () {
+        setStyle('insertUnorderedList');
+    });
+
+    function setStyle(style) {
+        document.execCommand(style);
+        focusEditor();
+    }
+
+    // 버튼 클릭 시 에디터가 포커스를 잃기 때문에 다시 에디터에 포커스를 해줌
+    function focusEditor() {
+        editor.focus({preventScroll: true});
+    }
 </script>
-</html>
+<style>
+	div#editor {
+    	padding: 16px 24px;
+        border: 1px solid #D6D6D6;
+        border-radius: 4px;
+    }
+</style>
