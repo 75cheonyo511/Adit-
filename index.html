@@ -1,3 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<!-- ********************* 자신의 프로젝트에 맞춰서 경로 수정 필요 ****************************** -->
+<!-- SunEdtor css -->
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/suneditor.min.css">
+<!-- SunEdtor js -->
+<script type="text/javascript" src="js/suneditor.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+<!-- ********************* 자신의 프로젝트에 맞춰서 경로 수정 필요 ****************************** -->
+ 
+<script type="text/javascript">
+  $(function(){
+    SUNEDITOR.create('content',{
+      font : [
+          'Arial',
+          'tahoma',
+          'Courier New,Courier'
+      ],
+      fontSize : [
+          8, 10, 14, 18, 24, 36
+      ],
+      colorList: [
+          ['#ccc', '#dedede', 'OrangeRed', 'Orange', 'RoyalBlue', 'SaddleBrown'],
+          ['SlateGray', 'BurlyWood', 'DeepPink', 'FireBrick', 'Gold', 'SeaGreen']
+      ],
+      width: '100%',
+      maxWidth: '600px',
+      minWidth: 400,
+      height : 'auto',
+      imageWidth : 150,
+      popupDisplay: 'local',
+      resizingBar: false,
+      buttonList : [
+          ['font', 'fontSize',
+          'fontColor', 'hiliteColor',
+          'fullScreen', 'codeView']
+      ],
+      callBackSave: function (contents) {
+          alert(contents);
+      }
+    });
+  });
+  // 글쓰기 버튼
+    function saveButton(){
+        if(document.getElementById("title").value === "" || 
+        document.getElementById("title").value == null ){
+        alert("제목을 입력해주세요");
+        return false;
+    }
+ 
+    // 자신의 프로젝트에 맞춰서 경로 수정 필요
+    $.ajax({
+      url: "/board/noticeRegist",
+      type: "post",
+      data: {
+          title : document.getElementById("title").value,
+          content : $('.sun-editor-editable').html(),
+      } ,
+      // dataType: "json",
+      error : function(request, status, error){
+          alert('등록 실패');
+          console.dir(request);
+          console.dir(status);
+          console.dir(error);
+      },
+      success : function(result){
+        alert("등록이 완료되었습니다.");
+        // 자신의 프로젝트에 맞춰서 경로 수정 필요
+        location.href="/board/noticeList";
+      }
+    });
+    }
+</script>
+<title>글쓰기</title>
+</head>
+<body>
+    <div>
+        <div>
+      <table style="text-align: center; border: 1px solid #dddddd">
+          <thead>
+            <tr>
+              <th colspan="5">게시판 글쓰기 양식</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="5" ><input type="text" id="title" class="form-control" placeholder="글 제목" name="title" maxlength="50"></td>
+            </tr>
+            <tr>
+              <td colspan="5" ><textarea class="form-control" id="content" placeholder="글 내용" name="content" maxlength="2048" style="height:350px;"></textarea></td>
+            </tr>
+          </tbody>
+      </table>
+      <button id="saveButton" type="submit" class="btn btn-dark" onclick="saveButton()">글쓰기</button>
+      <br>
+        </div>
+    </div>
+</body>
+</html>
+
 <div>
     <p>HTML &lt;body&gt; 태그 안에 들어갈 내용을 입력하세요.</p>
     <p><textarea id="code" style="width:99%;height:100px">&lt;p>안녕하세요.&lt;/p></textarea></p>
