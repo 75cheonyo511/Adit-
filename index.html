@@ -1,34 +1,29 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stickcode_summernote</title>
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+</head>
 <body>
-<form name="smartEditorText" method="POST" action="/text/insertText"> 
-    <textarea rows="13" cols="40" id="textTest" name="textTest"></textarea> // id 설정
-    <button type = "submit" onclick="submitContents()">전송</button> // onclick 함수 추가
-</form>
- 
- 
- 
-<script type="text/javascript"
-src="../naver-smarteditor2/demo/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-<!— 파일 디렉토리에 알맞게 변경 —>
- 
-<script type="text/javascript">
-var oEditors = [];
-    
-    // Editor Setting
-    nhn.husky.EZCreator.createInIFrame({ oAppRef : oEditors,
-        elPlaceHolder : "textTest", // 에디터를 적용할 textarea ID에 맞게 변경
-        sSkinURI : "../naver-smarteditor2/demo/SmartEditor2Skin.html", // Editor HTML파일 위치로 변경
-        fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명으로 변경하면 안된다.
-        htParams : { // 툴바 사용 여부 (true/false)
-            bUseToolbar : true, // 입력창 크기 조절바 사용 여부 (true/false)
-            bUseVerticalResizer : true, // 모드 탭(Editor|HTML|TEXT) 사용 여부 (true/false)
-            bUseModeChanger : true // 전송버튼 클릭이벤트
-        }
+<h1>Summernote</h1>
+<div id="summernote"></div>
+<script>
+    // 메인화면 페이지 로드 함수
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: '내용을 작성하세요',
+            height: 400,
+            maxHeight: 400
+        });
     });
- 
-function submitContents() {
-        // 에디터의 내용이 textarea에 적용
-        oEditors.getById["class_tutorIntroduce"].exec("UPDATE_CONTENTS_FIELD", []);
-}
 </script>
+</body>
+</html>
