@@ -1,100 +1,34 @@
+<!doctype html>
+<html>
 <body>
-
-<div class="container">
-
-<form id="boardWriteForm" method="post">
-
-<div>
-
-<div><b>제목</b></div>
-
-<input type="text" id="title" name="title" value="" maxlength="100" style="width: 100%;"/>
-
-</div>
-
-<div class="contentDiv">
-
-<textarea id="txtContent" name="contents" rows="30" style="width:100%;"></textarea>
-
-</div>
-
-<div class="buttonDiv">
-
-<button type="button" onclick="onWrite()">쓰기</button>
-
-<button type="button" onclick="history.go(-1);"> 취소</button>
-
-</div>
-
+<form name="smartEditorText" method="POST" action="/text/insertText"> 
+    <textarea rows="13" cols="40" id="textTest" name="textTest"></textarea> // id 설정
+    <button type = "submit" onclick="submitContents()">전송</button> // onclick 함수 추가
 </form>
-
-</div>
-
-</body>
-
+ 
+ 
+ 
+<script type="text/javascript"
+src="../naver-smarteditor2/demo/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<!— 파일 디렉토리에 알맞게 변경 —>
+ 
 <script type="text/javascript">
-
 var oEditors = [];
-
-nhn.husky.EZCreator.createInIFrame({
-
-oAppRef: oEditors,
-
-elPlaceHolder: document.getElementById('txtContent'), // html editor가 들어갈 textarea id 입니다.
-
-sSkinURI: "resources/se/SmartEditor2Skin.html",  // html editor가 skin url 입니다.
-
-fOnAppLoad: function () { 
-
-        //수정모드를 구현할 때 사용할 부분입니다. 로딩이 끝난 후 값이 체워지게 하는 구현을 합니다.
-
-         var title = localStorage.getItem("title");                      
-
-         var contents = localStorage.getItem("contents");        //db에서 불러온 값은 여기에서 체워넣습니다.
-
-         document.getElementById("title").value = title;     
-
-         oEditors.getById["txtContent"].exec("PASTE_HTML", [contents]); //로딩이 끝나면 contents를 txtContent에 넣습니다.
-
-     },
-
-     fCreator: "createSEditor2"
-
- });
-
+    
+    // Editor Setting
+    nhn.husky.EZCreator.createInIFrame({ oAppRef : oEditors,
+        elPlaceHolder : "textTest", // 에디터를 적용할 textarea ID에 맞게 변경
+        sSkinURI : "../naver-smarteditor2/demo/SmartEditor2Skin.html", // Editor HTML파일 위치로 변경
+        fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명으로 변경하면 안된다.
+        htParams : { // 툴바 사용 여부 (true/false)
+            bUseToolbar : true, // 입력창 크기 조절바 사용 여부 (true/false)
+            bUseVerticalResizer : true, // 모드 탭(Editor|HTML|TEXT) 사용 여부 (true/false)
+            bUseModeChanger : true // 전송버튼 클릭이벤트
+        }
+    });
  
-
-var onWrite = function(){
-
-oEditors.getById["txtContent"].exec("UPDATE_CONTENTS_FIELD", []); // 에디터의 내용이 textarea에 적용합니다.
-
-
-var contents = document.getElementById("txtContent").value;
-
-var title = document.getElementById("title").value;
-
-localStorage.setItem("contents", contents);
-
-localStorage.setItem("title", title);             //localStorage에 제목과 내용을 저장.
-
- 
-
-var boardWriteForm = document.getElementById("boardWriteForm");  
-
-//boardWriteForm.action ="writeSubmit"; //저장할 페이지로 쏩니다. db를 쓰지 않으니 사용하지 않았습니다.
-
-boardWriteForm.submit();  
-
-};
-
- 
-
-var pasteHTML = function(filename){                     //업로드한 사진을 화면에 보여주게 만드는 스크립트입니다.
-
-    var sHTML = '<img src="${pageContext.request.contextPath}/resources/upload/'+filename+'">'; //사진이 저장된 경로입니다.
-
-    oEditors.getById["txtContent"].exec("PASTE_HTML", [sHTML]);
-
-};
-
+function submitContents() {
+        // 에디터의 내용이 textarea에 적용
+        oEditors.getById["class_tutorIntroduce"].exec("UPDATE_CONTENTS_FIELD", []);
+}
 </script>
