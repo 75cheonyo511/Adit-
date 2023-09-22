@@ -61,104 +61,105 @@ div.wEditor p {margin:0;padding:0;}
     
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/각자 발급받은 api key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
 <body>
-
-<div class="container">
-
-<form id="boardWriteForm" method="post">
-
-<div>
-
-<div><b>제목</b></div>
-
-<input type="text" id="title" name="title" value="" maxlength="100" style="width: 100%;"/>
-
-</div>
-
-<div class="contentDiv">
-
-<textarea id="txtContent" name="contents" rows="30" style="width:100%;"></textarea>
-
-</div>
-
-<div class="buttonDiv">
-
-<button type="button" onclick="onWrite()">쓰기</button>
-
-<button type="button" onclick="history.go(-1);"> 취소</button>
-
-</div>
-
-</form>
-
-</div>
-
+    <h1>TinyMCE Quick Start Guide</h1>
+    <form method="post">
+        <textarea id="editor">Hello, World!</textarea>
+        <button type="button" id="save">게시글 저장</button>
+    </form>
 </body>
 
-<script type="text/javascript">
+<script>
+$(function(){
+    var plugins = [
+        "advlist", "autolink", "lists", "link", "image", "charmap", "print", "preview", "anchor",
+        "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table",
+        "paste", "code", "help", "wordcount", "save"
+    ];
+    var edit_toolbar = 'formatselect fontselect fontsizeselect |'
+               + ' forecolor backcolor |'
+               + ' bold italic underline strikethrough |'
+               + ' alignjustify alignleft aligncenter alignright |'
+               + ' bullist numlist |'
+               + ' table tabledelete |'
+               + ' link image';
 
-var oEditors = [];
+    tinymce.init({
+    	language: "ko_KR", //한글판으로 변경
+        selector: '#editor',
+        height: 500,
+        menubar: false,
+        plugins: plugins,
+        toolbar: edit_toolbar,
+        
+        /*** image upload ***/
+        image_title: true,
+        /* enable automatic uploads of images represented by blob or data URIs*/
+        automatic_uploads: true,
+        /*
+            URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+            images_upload_url: 'postAcceptor.php',
+            here we add custom filepicker only to Image dialog
+        */
+        file_picker_types: 'image',
+        /* and here's our custom image picker*/
+        file_picker_callback: function (cb, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
 
-nhn.husky.EZCreator.createInIFrame({
+            /*
+            Note: In modern browsers input[type="file"] is functional without
+            even adding it to the DOM, but that might not be the case in some older
+            or quirky browsers like IE, so you might want to add it to the DOM
+            just in case, and visually hide it. And do not forget do remove it
+            once you do not need it anymore.
+            */
+            input.onchange = function () {
+                var file = this.files[0];
 
-oAppRef: oEditors,
+                var reader = new FileReader();
+                reader.onload = function () {
+                    /*
+                    Note: Now we need to register the blob in TinyMCEs image blob
+                    registry. In the next release this part hopefully won't be
+                    necessary, as we are looking to handle it internally.
+                    */
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
 
-elPlaceHolder: document.getElementById('txtContent'), // html editor가 들어갈 textarea id 입니다.
-
-sSkinURI: "resources/se/SmartEditor2Skin.html",  // html editor가 skin url 입니다.
-
-fOnAppLoad: function () { 
-
-        //수정모드를 구현할 때 사용할 부분입니다. 로딩이 끝난 후 값이 체워지게 하는 구현을 합니다.
-
-         var title = localStorage.getItem("title");                      
-
-         var contents = localStorage.getItem("contents");        //db에서 불러온 값은 여기에서 체워넣습니다.
-
-         document.getElementById("title").value = title;     
-
-         oEditors.getById["txtContent"].exec("PASTE_HTML", [contents]); //로딩이 끝나면 contents를 txtContent에 넣습니다.
-
-     },
-
-     fCreator: "createSEditor2"
-
- });
-
- 
-
-var onWrite = function(){
-
-oEditors.getById["txtContent"].exec("UPDATE_CONTENTS_FIELD", []); // 에디터의 내용이 textarea에 적용합니다.
+                    /* call the callback and populate the Title field with the file name */
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
+        },
+        /*** image upload ***/
+        
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
 
 
-var contents = document.getElementById("txtContent").value;
-
-var title = document.getElementById("title").value;
-
-localStorage.setItem("contents", contents);
-
-localStorage.setItem("title", title);             //localStorage에 제목과 내용을 저장.
-
- 
-
-var boardWriteForm = document.getElementById("boardWriteForm");  
-
-//boardWriteForm.action ="writeSubmit"; //저장할 페이지로 쏩니다. db를 쓰지 않으니 사용하지 않았습니다.
-
-boardWriteForm.submit();  
-
-};
-
- 
-
-var pasteHTML = function(filename){                     //업로드한 사진을 화면에 보여주게 만드는 스크립트입니다.
-
-    var sHTML = '<img src="${pageContext.request.contextPath}/resources/upload/'+filename+'">'; //사진이 저장된 경로입니다.
-
-    oEditors.getById["txtContent"].exec("PASTE_HTML", [sHTML]);
-
-};
-
+    $("#save").on("click", function(){
+        var content = tinymce.activeEditor.getContent();
+        console.log(content);
+    });
+    
+});
 </script>
+
 </html>
