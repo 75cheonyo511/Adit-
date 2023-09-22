@@ -1,64 +1,87 @@
-<script type="text/javascript" src="../resources/static/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
-<div class="row">
-    <!-- 포스트 추가하는 곳-->
-    <!-- Naver SmartEditor 2.8.2를 사용하였습니다. -->
-    <h3>Naver Smart Editor 2.0</h3>
-    <form action="insertStudentInfoForm" method="post">
-        <div id="smarteditor">
-            <textarea
-                name="editorTxt"
-                id="editorTxt"
-                rows="20"
-                cols="10"
-                placeholder="내용을 입력해주세요"
-                style="width: 500px"></textarea>
-        </div>
-        <input type="button" value="내용콘솔에" onclick="submitPost()"/>
-    </form>
-    <!-- 포스트 추가하는 곳-->
-</div>
-<!-- The mapping for the default servlet -->
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/</url-pattern>
-        <!-- 아래에 js 및 css 확장자 추가 -->
-        <url-pattern>*.js</url-pattern>
-        <url-pattern>*.css</url-pattern>
-        <url-pattern>*.jpg</url-pattern>
-        <url-pattern>*.ico</url-pattern>
-        <url-pattern>*.gif</url-pattern>
-        <url-pattern>*.png</url-pattern>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
-    <script>
-     /* 에디터 설정 */
-	    let oEditors = [];
-	
-	    smartEditor = function() {
-	      console.log("Naver SmartEditor")
-	      nhn.husky.EZCreator.createInIFrame({
-	        oAppRef: oEditors,
-	        elPlaceHolder: "editorTxt",
-	        sSkinURI: "../resources/static/smarteditor/SmartEditor2Skin.html",
-	        fCreator: "createSEditor2"
-	      })
-	    }
-	
-	    $(document).ready(function() {
-	      smartEditor()
-	    })
-     /* 버튼 클릭 이벤트 */
-	    submitPost = function() {
-		  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", [])
-		  let content = document.getElementById("editorTxt").value
-		
-		  //if(content == '') {
-            if(content == '<p>&nbsp;</p>') { //비어있어도 기본 P태그가 붙더라.
-		    alert("내용을 입력해주세요.")
-		    oEditors.getById["editorTxt"].exec("FOCUS")
-		    return
-		  } else {
-		    console.log(content)
-		  }
-     }
-    </script>
+import React, { useEffect, useRef, useState } from "react";
+
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+
+// Toast UI Editor
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/react-editor";
+
+// Dark Theme 적용
+// import '@toast-ui/editor/dist/toastui-editor.css';
+// import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
+
+// Color Syntax Plugin
+import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+
+// Table Merged Cell Plugin
+import "@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-table-merged-cell.css";
+import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
+
+const colorSyntaxOptions = {
+  preset: [
+    "#333333", "#666666", "#FFFFFF", "#EE2323", "#F89009", "#009A87", "#006DD7", "#8A3DB6",
+    "#781B33", "#5733B1", "#953B34", "#FFC1C8", "#FFC9AF", "#9FEEC3", "#99CEFA", "#C1BEF9",
+  ],
+};
+
+const CONTENT_KEY = "CONTENT_KEY";
+
+const App = () => {
+  const editorRef = useRef(null);
+
+  const handleSave = () => {
+    let markDownContent = editorRef.current.getInstance().getMarkdown();
+    //let htmlContent = editorRef.current.getInstance().getHTML();
+
+    localStorage.setItem(CONTENT_KEY, markDownContent);
+  };
+
+  useEffect(() => {
+    let item = localStorage.getItem(CONTENT_KEY);
+    if(item) {
+      editorRef.current.getInstance().setMarkdown(item);
+    }   
+  }, []);
+
+  return (
+    <div>
+      <Box sx={{ m: 2 }}>
+        <h1>Toast UI Editor</h1>
+        <Button
+          variant="outlined"
+          color="primary"
+          sx={{ m: 1 }}
+          onClick={handleSave}
+        >
+          저장하기
+        </Button>
+        <Editor
+          ref={editorRef}
+          // initialValue={initContents}
+          height="400px"
+          placeholder="Please Enter Text."
+          previewStyle="tab" // or vertical
+          initialEditType="wysiwyg" // or markdown
+          // hideModeSwitch={true} // 하단 숨기기
+          toolbarItems={[
+            // 툴바 옵션 설정
+            ["heading", "bold", "italic", "strike"],
+            ["hr", "quote"],
+            ["ul", "ol", "task", "indent", "outdent"],
+            ["table", /* "image", */ "link"],
+            ["code", "codeblock"],
+          ]}
+          //theme="dark"
+          //useCommandShortcut={false} // 키보드 입력 컨트롤 방지 ex ctrl z 등
+          usageStatistics={false} // 통계 수집 거부
+          plugins={[[colorSyntax, colorSyntaxOptions], tableMergedCell]}
+        />
+      </Box>
+    </div>
+  );
+};
+
+export default App;
