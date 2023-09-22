@@ -52,6 +52,18 @@ div.wEditor p {margin:0;padding:0;}
         alert(html);    
     };
 })();
+
+
+
+    document.querySelectorAll('.options button').forEach(item => item.addEventListener('click', function () {
+    const command = item.dataset.command;
+    if (command === 'h1' || command === 'h2' || command === 'h3' || command === 'p') {
+        document.execCommand('formatBlock', false, command);
+    } else {
+        document.execCommand(command); //data-command에서 이름을 맞춰주었기 때문에 '명령코드'에 command 이름이 들어가서 바로 적용이 된다. 추가로 변수가 필요하지 않기 때문에 명령어만 보냄
+    }
+}));
 </script>
+    <button type="button" data-command="h1"></button>
 </bodY>
 </html>
