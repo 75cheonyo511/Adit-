@@ -1,123 +1,64 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1">
-<!-- ********************* 자신의 프로젝트에 맞춰서 경로 수정 필요 ****************************** -->
-<!-- SunEdtor css -->
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/suneditor.min.css">
-<!-- SunEdtor js -->
-<script type="text/javascript" src="js/suneditor.min.js"></script>
-<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-<!-- ********************* 자신의 프로젝트에 맞춰서 경로 수정 필요 ****************************** -->
- 
-<script type="text/javascript">
-  $(function(){
-    SUNEDITOR.create('content',{
-      font : [
-          'Arial',
-          'tahoma',
-          'Courier New,Courier'
-      ],
-      fontSize : [
-          8, 10, 14, 18, 24, 36
-      ],
-      colorList: [
-          ['#ccc', '#dedede', 'OrangeRed', 'Orange', 'RoyalBlue', 'SaddleBrown'],
-          ['SlateGray', 'BurlyWood', 'DeepPink', 'FireBrick', 'Gold', 'SeaGreen']
-      ],
-      width: '100%',
-      maxWidth: '600px',
-      minWidth: 400,
-      height : 'auto',
-      imageWidth : 150,
-      popupDisplay: 'local',
-      resizingBar: false,
-      buttonList : [
-          ['font', 'fontSize',
-          'fontColor', 'hiliteColor',
-          'fullScreen', 'codeView']
-      ],
-      callBackSave: function (contents) {
-          alert(contents);
-      }
-    });
-  });
-  // 글쓰기 버튼
-    function saveButton(){
-        if(document.getElementById("title").value === "" || 
-        document.getElementById("title").value == null ){
-        alert("제목을 입력해주세요");
-        return false;
-    }
- 
-    // 자신의 프로젝트에 맞춰서 경로 수정 필요
-    $.ajax({
-      url: "/board/noticeRegist",
-      type: "post",
-      data: {
-          title : document.getElementById("title").value,
-          content : $('.sun-editor-editable').html(),
-      } ,
-      // dataType: "json",
-      error : function(request, status, error){
-          alert('등록 실패');
-          console.dir(request);
-          console.dir(status);
-          console.dir(error);
-      },
-      success : function(result){
-        alert("등록이 완료되었습니다.");
-        // 자신의 프로젝트에 맞춰서 경로 수정 필요
-        location.href="/board/noticeList";
-      }
-    });
-    }
-</script>
-<title>글쓰기</title>
-</head>
-<body>
-    <div>
-        <div>
-      <table style="text-align: center; border: 1px solid #dddddd">
-          <thead>
-            <tr>
-              <th colspan="5">게시판 글쓰기 양식</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td colspan="5" ><input type="text" id="title" class="form-control" placeholder="글 제목" name="title" maxlength="50"></td>
-            </tr>
-            <tr>
-              <td colspan="5" ><textarea class="form-control" id="content" placeholder="글 내용" name="content" maxlength="2048" style="height:350px;"></textarea></td>
-            </tr>
-          </tbody>
-      </table>
-      <button id="saveButton" type="submit" class="btn btn-dark" onclick="saveButton()">글쓰기</button>
-      <br>
+<script type="text/javascript" src="../resources/static/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<div class="row">
+    <!-- 포스트 추가하는 곳-->
+    <!-- Naver SmartEditor 2.8.2를 사용하였습니다. -->
+    <h3>Naver Smart Editor 2.0</h3>
+    <form action="insertStudentInfoForm" method="post">
+        <div id="smarteditor">
+            <textarea
+                name="editorTxt"
+                id="editorTxt"
+                rows="20"
+                cols="10"
+                placeholder="내용을 입력해주세요"
+                style="width: 500px"></textarea>
         </div>
-    </div>
-</body>
-</html>
-
-<div>
-    <p>HTML &lt;body&gt; 태그 안에 들어갈 내용을 입력하세요.</p>
-    <p><textarea id="code" style="width:99%;height:100px">&lt;p>안녕하세요.&lt;/p></textarea></p>
+        <input type="button" value="내용콘솔에" onclick="submitPost()"/>
+    </form>
+    <!-- 포스트 추가하는 곳-->
 </div>
-<button onclick="createHTMLDocument()" style="line-height:3em">HTML 문서로 만들기</button>
-<p><a href="#" id="link" download="my_document.html"></a></p>
-<script>
-  function createHTMLDocument() {
-    var blob = new Blob(
-        ['<!doctype html>','<html><head><title>Blob Example</title><body>',document.getElementById('code').value,'</body></html>'],
-        {type:'text/html'}
-    );
-    var url = URL.createObjectURL(blob);
-    var link = document.getElementById('link');
-    
-    link.setAttribute('href', url);
-    link.innerHTML = '클릭하여 다운받기';
-  }
-</script>
+<!-- The mapping for the default servlet -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+        <!-- 아래에 js 및 css 확장자 추가 -->
+        <url-pattern>*.js</url-pattern>
+        <url-pattern>*.css</url-pattern>
+        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.ico</url-pattern>
+        <url-pattern>*.gif</url-pattern>
+        <url-pattern>*.png</url-pattern>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+    <script>
+     /* 에디터 설정 */
+	    let oEditors = [];
+	
+	    smartEditor = function() {
+	      console.log("Naver SmartEditor")
+	      nhn.husky.EZCreator.createInIFrame({
+	        oAppRef: oEditors,
+	        elPlaceHolder: "editorTxt",
+	        sSkinURI: "../resources/static/smarteditor/SmartEditor2Skin.html",
+	        fCreator: "createSEditor2"
+	      })
+	    }
+	
+	    $(document).ready(function() {
+	      smartEditor()
+	    })
+     /* 버튼 클릭 이벤트 */
+	    submitPost = function() {
+		  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", [])
+		  let content = document.getElementById("editorTxt").value
+		
+		  //if(content == '') {
+            if(content == '<p>&nbsp;</p>') { //비어있어도 기본 P태그가 붙더라.
+		    alert("내용을 입력해주세요.")
+		    oEditors.getById["editorTxt"].exec("FOCUS")
+		    return
+		  } else {
+		    console.log(content)
+		  }
+     }
+    </script>
