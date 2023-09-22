@@ -1,87 +1,52 @@
-import React, { useEffect, useRef, useState } from "react";
-
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-
-// Toast UI Editor
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
-
-// Dark Theme 적용
-// import '@toast-ui/editor/dist/toastui-editor.css';
-// import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
-
-// Color Syntax Plugin
-import "tui-color-picker/dist/tui-color-picker.css";
-import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
-import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
-
-// Table Merged Cell Plugin
-import "@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-table-merged-cell.css";
-import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
-
-const colorSyntaxOptions = {
-  preset: [
-    "#333333", "#666666", "#FFFFFF", "#EE2323", "#F89009", "#009A87", "#006DD7", "#8A3DB6",
-    "#781B33", "#5733B1", "#953B34", "#FFC1C8", "#FFC9AF", "#9FEEC3", "#99CEFA", "#C1BEF9",
-  ],
-};
-
-const CONTENT_KEY = "CONTENT_KEY";
-
-const App = () => {
-  const editorRef = useRef(null);
-
-  const handleSave = () => {
-    let markDownContent = editorRef.current.getInstance().getMarkdown();
-    //let htmlContent = editorRef.current.getInstance().getHTML();
-
-    localStorage.setItem(CONTENT_KEY, markDownContent);
-  };
-
-  useEffect(() => {
-    let item = localStorage.getItem(CONTENT_KEY);
-    if(item) {
-      editorRef.current.getInstance().setMarkdown(item);
-    }   
-  }, []);
-
-  return (
-    <div>
-      <Box sx={{ m: 2 }}>
-        <h1>Toast UI Editor</h1>
-        <Button
-          variant="outlined"
-          color="primary"
-          sx={{ m: 1 }}
-          onClick={handleSave}
-        >
-          저장하기
-        </Button>
-        <Editor
-          ref={editorRef}
-          // initialValue={initContents}
-          height="400px"
-          placeholder="Please Enter Text."
-          previewStyle="tab" // or vertical
-          initialEditType="wysiwyg" // or markdown
-          // hideModeSwitch={true} // 하단 숨기기
-          toolbarItems={[
-            // 툴바 옵션 설정
-            ["heading", "bold", "italic", "strike"],
-            ["hr", "quote"],
-            ["ul", "ol", "task", "indent", "outdent"],
-            ["table", /* "image", */ "link"],
-            ["code", "codeblock"],
-          ]}
-          //theme="dark"
-          //useCommandShortcut={false} // 키보드 입력 컨트롤 방지 ex ctrl z 등
-          usageStatistics={false} // 통계 수집 거부
-          plugins={[[colorSyntax, colorSyntaxOptions], tableMergedCell]}
-        />
-      </Box>
-    </div>
-  );
-};
-
-export default App;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form class="btns-form">
+        <button type="button" data-cmd="justifyLeft">
+            <i class="fas fa-align-left"></i>
+        </button>
+        <button type="button" data-cmd="justifyCenter">
+            <i class="fas fa-align-center"></i>
+        </button>
+        <button type="button" data-cmd="justifyFull">
+            <i class="fas fa-align-justify"></i>
+        </button>
+        <button type="button" data-cmd="justifyRight">
+            <i class="fas fa-align-right"></i>
+        </button>
+        <button type="button" data-cmd="bold">
+            <i class="fas fa-bold"></i>
+        </button>
+        <button type="button" data-cmd="italic">
+            <i class="fas fa-italic"></i>
+        </button>
+        <button type="button" data-cmd="underline">
+            <i class="fas fa-underline"></i>
+        </button>
+        <button type="button" data-cmd="insertOrderedList">
+            <i class="fas fa-list-ol"></i>
+        </button>
+        <button type="button" data-cmd="insertUnorderedList">
+            <i class="fas fa-list-ul"></i>
+        </button>
+        <button type="button" data-cmd="insertImage">
+            <i class="far fa-image"></i>
+        </button>
+        <button type="button" data-cmd="createLink">
+            <i class="fas fa-link"></i>
+        </button>
+        <button type="button" data-cmd="showCode" name="active">
+            <i class="fas fa-code"></i>
+        </button>
+    </form>
+    <iframe id="output" name="textField"></iframe>
+    <script src="./index.js"></script>
+</body>
+</html> 
