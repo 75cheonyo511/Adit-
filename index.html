@@ -70,6 +70,9 @@ div.wEditor p {margin:0;padding:0;}
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/awo8y0w19ji66nttom1djzcikz9qa27kwxz1zjif2stjz4j2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+<script src="https://cdn.tiny.cloud/1/awo8y0w19ji66nttom1djzcikz9qa27kwxz1zjif2stjz4j2/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
     <h1>TinyMCE Quick Start Guide</h1>
@@ -77,6 +80,12 @@ div.wEditor p {margin:0;padding:0;}
         <textarea id="editor">Hello, World!</textarea>
         <button type="button" id="save">게시글 저장</button>
     </form>
+
+
+
+    <textarea>
+    Welcome to TinyMCE!
+    </textarea>
 </body>
 
 <script>
@@ -160,25 +169,11 @@ $(function(){
     });
     
 });
-</script>
 
 
 
 
-
-
-    <!DOCTYPE html>
-<html>
-<head>
-  <script src="https://cdn.tiny.cloud/1/awo8y0w19ji66nttom1djzcikz9qa27kwxz1zjif2stjz4j2/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-  
-</head>
-<body>
-  <textarea>
-    Welcome to TinyMCE!
-  </textarea>
-  <script>
-    tinymce.init({
+     tinymce.init({
       selector: 'textarea',
       plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
       toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
@@ -190,8 +185,14 @@ $(function(){
       ],
       ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
     });
-  </script>
-</body>
+</script>
+
+
+
+
+
+
+    
 </html>
 
 
