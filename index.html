@@ -22,8 +22,6 @@ div.wEditor p {margin:0;padding:0;}
     <button id="italic">이탤릭</button> 
     <button id="html">html 넣기</button> 
     <button id="print">출력 </button>  
-<button onclick="createHTMLDocument()" style="line-height:3em">HTML 문서로 만들기</button>
-<p><a href="#" id="link" download="my_document.html"></a></p>
 </div>
 
 <script>
@@ -69,7 +67,10 @@ function createHTMLDocument() {
     link.setAttribute('href', url);
     link.innerHTML = '클릭하여 다운받기';
 }
+
 </script>
+    <button onclick="createHTMLDocument()" style="line-height:3em">HTML 문서로 만들기</button>
+<p><a href="#" id="link" download="my_document.html"></a></p>
 </bodY>
 
     
